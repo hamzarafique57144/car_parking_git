@@ -19,7 +19,7 @@ using UnityEngine.EventSystems;
 /// </summary>
 [AddComponentMenu("BoneCracker Games/Realistic Car Controller/UI/Mobile/RCC UI Drag")]
 public class RCC_MobileUIDrag : MonoBehaviour, IDragHandler, IEndDragHandler {
-
+    
     private void Awake() {
 
         //  If mobile controller is not enabled disable the gameobject and return.
@@ -41,10 +41,12 @@ public class RCC_MobileUIDrag : MonoBehaviour, IDragHandler, IEndDragHandler {
         //  If mobile controller is not enabled, return.
         if (!RCC_Settings.Instance.mobileControllerEnabled)
             return;
-
+        
         //  Return if no player camera found.
         if (!RCC_SceneManager.Instance.activePlayerCamera)
+        {
             return;
+        }
 
         RCC_SceneManager.Instance.activePlayerCamera.OnDrag(data);
 

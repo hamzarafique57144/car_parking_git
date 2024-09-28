@@ -8,6 +8,8 @@ public class CarSelector : MonoBehaviour
     public Camera mainCamera; // Assign your main camera in the Inspector
     private RCC_CarControllerV3 selectedCar;
     private Rigidbody playerCarRigidbody;
+    [SerializeField] GameObject Camera_RCC;
+    [SerializeField] Camera CarSelectionCamera;
 
     private void Start()
     {
@@ -37,7 +39,7 @@ public class CarSelector : MonoBehaviour
                         playerCarRigidbody.isKinematic = true;
                         selectedCar.gameObject.GetComponent<Rigidbody>().isKinematic = false;
                         selectedCar.enabled = true;
-                        Invoke(nameof(SwitchControlToPlayer), 5f);
+                        Invoke(nameof(SwitchControlToPlayer), 7f);
                        // selectedCar.SetControlled(false); // Deselect current car
                     }
 
@@ -54,5 +56,17 @@ public class CarSelector : MonoBehaviour
         playerCarRigidbody.isKinematic = false;
         selectedCar.enabled = false;
         selectedCar.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+    }
+
+    public void OnSkipButtonClick()
+    {
+        playerCar.enabled = false;
+        playerCarRigidbody.isKinematic = true;
+        Vector3 RccCameraPosition = Camera_RCC.transform.position;
+        CarSelectionCamera.gameObject.transform.position = new Vector3(RccCameraPosition.x, CarSelectionCamera.transform.position.y, RccCameraPosition.z);
+        
+        Camera_RCC.SetActive(false);
+        CarSelectionCamera.enabled = true;
+       
     }
 }
