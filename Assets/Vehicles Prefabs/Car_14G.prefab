@@ -1311,6 +1311,7 @@ GameObject:
   - component: {fileID: 5804526093325831084}
   - component: {fileID: 5804526093325831085}
   - component: {fileID: 5804526093325831086}
+  - component: {fileID: 5200271715624323887}
   m_Layer: 8
   m_Name: Car_14G
   m_TagString: Car
@@ -1634,6 +1635,19 @@ MonoBehaviour:
   useNOS: 0
   useTurbo: 0
   attachedTrailer: {fileID: 0}
+--- !u!114 &5200271715624323887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5804526093325831087}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39acf775931b06b4ab8bfe6fb5cc8a28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  carData: {fileID: 11400000, guid: 01ef3b5e454f26143b10e45dc8a697cb, type: 2}
 --- !u!1 &5804648683648260408
 GameObject:
   m_ObjectHideFlags: 0

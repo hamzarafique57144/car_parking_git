@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -7,35 +8,36 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
-    [SerializeField] float rotationSpeed = 5f;
     [SerializeField] Camera carSelectionCamera;
-    Vector2 dragDelta;
+
+    [SerializeField] CarSelector carSelector;
+    [SerializeField] GameObject hitCanvas;
+    [SerializeField] TextMeshProUGUI hitText;
+    [SerializeField] TextMeshProUGUI carNameText;
 
     private void Awake()
     {
         Instance = this;
     }
 
-    private void Update()
+    private void Start()
     {
-        // Rotate the camera horizontally (Y-axis)
-        float horizontalRotation = dragDelta.x * rotationSpeed * Time.deltaTime;
-        carSelectionCamera.transform.Rotate(Vector3.up, -horizontalRotation, Space.World);
-
-        // Rotate the camera vertically (X-axis)
-        float verticalRotation = dragDelta.y * rotationSpeed * Time.deltaTime;
-        carSelectionCamera.transform.Rotate(Vector3.right, verticalRotation, Space.Self);
+        hitCanvas.SetActive(false);
     }
-    public void OnDrag(PointerEventData data)
+   
+   public void OnCarHit()
     {
-        // Calculate the difference in drag position (data.delta)
-         dragDelta = data.delta;
-
-        
-
-
+        hitCanvas.SetActive(true);
+        CarData carData = carSelector.GetCar().GetCarData();
+        carNameText.text = carData.GetCarName;
+        hitText.text =  carData.GetCarPrice+" coins are deducted from your account";
+        Invoke(nameof(DisbaleCarHitPanel), 3.5f);
     }
-
+    
+    private void DisbaleCarHitPanel()
+    {
+        hitCanvas.SetActive(false);
+    }
     public bool CarSelectionCameraActive()
     {
         return carSelectionCamera.enabled;

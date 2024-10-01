@@ -1269,6 +1269,7 @@ GameObject:
   - component: {fileID: 7601504490628760483}
   - component: {fileID: 7601504490628760482}
   - component: {fileID: 7601504490628760485}
+  - component: {fileID: -6157852779428132168}
   m_Layer: 8
   m_Name: Red Car
   m_TagString: Car
@@ -1592,6 +1593,19 @@ MonoBehaviour:
   useNOS: 0
   useTurbo: 0
   attachedTrailer: {fileID: 0}
+--- !u!114 &-6157852779428132168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7601504490628760484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39acf775931b06b4ab8bfe6fb5cc8a28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  carData: {fileID: 11400000, guid: 9de40279eb336cd4eb01cfe89f0cf909, type: 2}
 --- !u!1 &7601504490688872251
 GameObject:
   m_ObjectHideFlags: 0

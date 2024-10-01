@@ -974,6 +974,7 @@ GameObject:
   - component: {fileID: 6698487851325470760}
   - component: {fileID: 6698487851325470761}
   - component: {fileID: 6698487851325470766}
+  - component: {fileID: 2208446325663317704}
   m_Layer: 8
   m_Name: Car_8C
   m_TagString: Car
@@ -988,7 +989,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6698487851325470767}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 13.687799, y: 0.91624105, z: -6.03115}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1297,6 +1298,19 @@ MonoBehaviour:
   useNOS: 0
   useTurbo: 0
   attachedTrailer: {fileID: 0}
+--- !u!114 &2208446325663317704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6698487851325470767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39acf775931b06b4ab8bfe6fb5cc8a28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  carData: {fileID: 11400000, guid: bb16eeea3ceff8642ae07d2418747173, type: 2}
 --- !u!1 &6698487851334506323
 GameObject:
   m_ObjectHideFlags: 0

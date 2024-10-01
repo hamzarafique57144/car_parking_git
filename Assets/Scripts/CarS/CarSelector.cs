@@ -94,4 +94,9 @@ public class CarSelector : MonoBehaviour
         CarSelectionCamera.gameObject.SetActive(true);
        
     }
+    public  Car GetCar()
+    {
+        Car car = selectedCar.gameObject.GetComponent<Car>();
+        return car;
+    }
 }
