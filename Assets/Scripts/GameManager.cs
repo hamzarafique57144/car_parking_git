@@ -15,6 +15,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI hitText;
     [SerializeField] TextMeshProUGUI carNameText;
 
+    [SerializeField] GameObject playerCarCollisionPanel;
+    [SerializeField] GameObject selectedCarTimerPanel;
+    public TextMeshProUGUI GetTimerText { set; get; }
     private void Awake()
     {
         Instance = this;
@@ -34,6 +37,7 @@ public class GameManager : MonoBehaviour
         Invoke(nameof(DisbaleCarHitPanel), 3.5f);
     }
     
+   
     private void DisbaleCarHitPanel()
     {
         hitCanvas.SetActive(false);
@@ -42,4 +46,17 @@ public class GameManager : MonoBehaviour
     {
         return carSelectionCamera.enabled;
     }
+
+    public void EnableTimerPanel()
+    {
+        playerCarCollisionPanel.SetActive(false);
+        selectedCarTimerPanel.SetActive(true);
+    }
+
+    public void DisableTimerPanel()
+    {
+        playerCarCollisionPanel.SetActive(true);
+        selectedCarTimerPanel.SetActive(false);
+    }
+
 }

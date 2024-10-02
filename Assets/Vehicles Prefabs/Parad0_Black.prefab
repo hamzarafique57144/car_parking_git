@@ -1328,6 +1328,7 @@ GameObject:
   - component: {fileID: 2846232102346986839}
   - component: {fileID: 2846232102346986832}
   - component: {fileID: 2846232102346986833}
+  - component: {fileID: 804440599}
   m_Layer: 8
   m_Name: Parad0_Black
   m_TagString: Player
@@ -1651,6 +1652,21 @@ MonoBehaviour:
   useNOS: 0
   useTurbo: 0
   attachedTrailer: {fileID: 0}
+--- !u!114 &804440599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2846232102346986834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2a3d0ebb59c420439a6cece0b28c97d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collisions: 3
+  carController: {fileID: 2846232102346986833}
+  collsionsText: {fileID: 0}
 --- !u!1 &2846232102404455165
 GameObject:
   m_ObjectHideFlags: 0
