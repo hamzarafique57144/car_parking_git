@@ -6,35 +6,28 @@ using UnityEngine;
 public class Car : MonoBehaviour
 {
     [SerializeField] CarData carData;
-    public float timer = 30f;
-    public bool startCountDown = false;
+    public float timer = 0f;
     GameManager gameManager;
+    public bool isSelected;
     private void Start()
     {
         gameManager = GameManager.Instance;
-        gameManager.GetTimerText.text = timer.ToString("F0");
+        
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(this.gameObject.GetComponent<RCC_CarControllerV3>().enabled)
+        if(CheckCarIsSelected())
         {
             gameManager.OnCarHit();
         }
        
     }
-    public IEnumerator StartCountDown()
+   
+    public bool CheckCarIsSelected()
     {
-        yield return null;
-        timer -= Time.deltaTime;
-        if(timer <= 0)
-        {
-            CarSelector.Instance.SwitchControlToPlayer();
-        }
-        if (startCountDown)
-        {
-            StartCoroutine(StartCountDown());
-        }
+        return this.gameObject.GetComponent<RCC_CarControllerV3>().enabled;
+            
     }
     public CarData GetCarData() { return carData; }
 }

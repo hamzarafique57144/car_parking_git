@@ -17,7 +17,10 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] GameObject playerCarCollisionPanel;
     [SerializeField] GameObject selectedCarTimerPanel;
-    public TextMeshProUGUI GetTimerText { set; get; }
+
+    [SerializeField] Slider carSlider;
+    private float carTimer = 30;
+    
     private void Awake()
     {
         Instance = this;
@@ -27,8 +30,31 @@ public class GameManager : MonoBehaviour
     {
         hitCanvas.SetActive(false);
     }
-   
-   public void OnCarHit()
+
+    private void Update()
+    {
+        SelectedCarSlider();
+
+
+    }
+
+    private void SelectedCarSlider()
+    {
+        if (carSelector.isCarSelected)
+        {
+
+            carSlider.value += Time.deltaTime / carTimer;
+            if (carSlider.value == 1)
+            {
+                carSelector.SwitchControlToPlayer();
+            }
+        }
+        else
+        {
+            carSlider.value = 0;
+        }
+    }
+    public void OnCarHit()
     {
         hitCanvas.SetActive(true);
         CarData carData = carSelector.GetCar().GetCarData();
@@ -37,7 +63,6 @@ public class GameManager : MonoBehaviour
         Invoke(nameof(DisbaleCarHitPanel), 3.5f);
     }
     
-   
     private void DisbaleCarHitPanel()
     {
         hitCanvas.SetActive(false);
@@ -46,10 +71,10 @@ public class GameManager : MonoBehaviour
     {
         return carSelectionCamera.enabled;
     }
-
+    #region CarTimerPanel
     public void EnableTimerPanel()
     {
-        playerCarCollisionPanel.SetActive(false);
+        DisablePlayerCarCollisionPanel();
         selectedCarTimerPanel.SetActive(true);
     }
 
@@ -58,5 +83,10 @@ public class GameManager : MonoBehaviour
         playerCarCollisionPanel.SetActive(true);
         selectedCarTimerPanel.SetActive(false);
     }
-
+     
+    public void DisablePlayerCarCollisionPanel()
+    {
+        playerCarCollisionPanel.SetActive(false);
+    }
+    #endregion
 }
