@@ -20,15 +20,23 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] Slider carSlider;
     private float carTimer = 30;
+
+    public Canvas notEnoughMoneytoSwitchCarCanvas;
     
     private void Awake()
     {
         Instance = this;
+        if (!PlayerPrefs.HasKey(PLAYER_PREFS.Cash))
+        {
+            CashManager.SetCashData(CashManager.defualtCash);
+        }
+
     }
 
     private void Start()
     {
         hitCanvas.SetActive(false);
+        notEnoughMoneytoSwitchCarCanvas.enabled = false;
     }
 
     private void Update()
@@ -60,7 +68,9 @@ public class GameManager : MonoBehaviour
         CarData carData = carSelector.GetCar().GetCarData();
         carNameText.text = carData.GetCarName;
         hitText.text =  carData.GetCarPrice+" coins are deducted from your account";
+        CashManager.DeductCash(carData.GetCarPrice);
         Invoke(nameof(DisbaleCarHitPanel), 3.5f);
+        Debug.Log("Cash is " + CashManager.GetSavedCash());
     }
     
     private void DisbaleCarHitPanel()
