@@ -54,9 +54,18 @@ public class CarSelector : MonoBehaviour
                 if (car != null && hit.collider.tag != "Player")
                 {
                     selectedVehicle = hit.transform.GetComponent<Car>();
-                    if (CashManager.GetSavedCash() >= selectedVehicle.GetCarData().GetCarPrice)
+                    if (CashManager.GetSavedCash() < selectedVehicle.GetCarData().GetCarPrice)
                     {
-                        selectedCar = car;
+                        Time.timeScale = 0f;
+                        //Further Logic
+                        Debug.Log("You can not select this car");
+                        notEnoughMoneyDesciptioniText.text = "Your current balance is " + CashManager.GetSavedCash().ToString() +
+                            " and the damage cost for this car is " + selectedVehicle.GetCarData().GetCarPrice.ToString() +
+                            " so you won't be able to pay fine.So avoid further accidents to stay in the game!";
+                        gameManager.notEnoughMoneytoSwitchCarCanvas.enabled = true;
+                        gameManager.RccCanvas.enabled = false;
+                    }
+                    selectedCar = car;
                         if (selectedCar != null)
                         {
                             isCarSelected = true;
@@ -72,26 +81,12 @@ public class CarSelector : MonoBehaviour
                             selectedCar.enabled = true;
                             selectedCar.StartEngine();
                             Camera_RCC.SetActive(true);
-
-
-
-
                             CarSelectionCamera.gameObject.SetActive(false);
                         }
                    
                        // Invoke(nameof(SwitchControlToPlayer), 30f);
                         // selectedCar.SetControlled(false); // Deselect current car
-                    }
-                    else
-                    {
-                        //Further Logic
-                        Debug.Log("You can not select this car");
-                        notEnoughMoneyDesciptioniText.text = "Your current balance is " + CashManager.GetSavedCash().ToString() +
-                            "and the damage cost for this car is " + selectedVehicle.GetCarData().GetCarPrice.ToString() +
-                            "and you won't be able to pay fine.So avoid further accidents to stay in the game!";
-                        gameManager.notEnoughMoneytoSwitchCarCanvas.enabled = true;
-                    }
-
+                    
 
                     // car.SetControlled(true); // Select new car
                 }
@@ -105,48 +100,22 @@ public class CarSelector : MonoBehaviour
         //but we decided to switch the car, it will be a
         //dangerous selection,in dangerous selection, if car hit,
         //the game will over
-        if (Input.GetMouseButton(0)) // For touch, you could use Input.touchCount > 0 and Input.GetTouch(0).phase == TouchPhase.Began
-        {
-            Ray ray = CarSelectionCamera.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
+        Time.timeScale = 1f;
+        selectedVehicle.GetCarData().SetDangerousSelection();
+        gameManager.notEnoughMoneytoSwitchCarCanvas.enabled = false;
+        gameManager.RccCanvas.enabled = true;
+    }
 
-            if (Physics.Raycast(ray, out hit, carLayerMask))
-            {
-
-                RCC_CarControllerV3 car = hit.transform.GetComponent<RCC_CarControllerV3>();
-
-                if (car != null && hit.collider.tag != "Player")
-                {
-                    selectedVehicle = hit.transform.GetComponent<Car>();
-                        selectedCar = car;
-                        if (selectedCar != null)
-                        {
-                            isCarSelected = true;
-
-                            OnCarControllSwitch?.Invoke(this, EventArgs.Empty);
-                            gameManager.EnableTimerPanel();
-                            //We can switch control from a selected to other
-                            canSwitch = true;
-                            playerCar.KillEngine();
-                            playerCar.enabled = false;
-                            playerCarRigidbody.isKinematic = true;
-                            selectedCar.gameObject.GetComponent<Rigidbody>().isKinematic = false;
-                            selectedCar.enabled = true;
-                            selectedCar.StartEngine();
-                            Camera_RCC.SetActive(true);
-
-
-
-
-                            CarSelectionCamera.gameObject.SetActive(false);
-                        }
-                }
-            }
-        }
-
+    public void DriveOtherCar()
+    {
+        Time.timeScale = 1f;
+        gameManager.notEnoughMoneytoSwitchCarCanvas.enabled = false;
+        gameManager.RccCanvas.enabled = true;
+        OnSkipButtonClick();
     }
     public void SwitchControlToPlayer()
     {
+        selectedVehicle.GetCarData().SetSafeSelection();
         isCarSelected = false ;
         gameManager.DisableTimerPanel();
         //We can not switch car untill we press switch button
@@ -158,11 +127,15 @@ public class CarSelector : MonoBehaviour
         selectedCar.enabled = false;
         
         selectedCar.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+        
     }
 
     public void OnSkipButtonClick()
     {
-       
+        if(selectedVehicle!= null)
+        {
+            selectedVehicle.GetCarData().SetSafeSelection();
+        } 
         isCarSelected = false;
         //Switch controll from player to other car
         canSwitch = true;

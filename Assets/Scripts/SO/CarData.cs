@@ -6,6 +6,7 @@ public class CarData : ScriptableObject
 {
     public string carName;
     public int price;
+    public bool dangerousSelection;
 
 
     public string GetCarName
@@ -18,4 +19,18 @@ public class CarData : ScriptableObject
         get { return price; }
     }
     
+    public void SetDangerousSelection()
+    {
+        dangerousSelection = true;
+   
+    }
+    public void SetSafeSelection()
+    {
+        dangerousSelection = true;
+    }
+
+    public bool GetSelectionStatus()
+    {
+        return dangerousSelection;
+    }
 }

@@ -35,4 +35,9 @@ public static class CashManager
        return PlayerPrefs.GetInt(PLAYER_PREFS.Cash);
        
     }
+
+    public static void ClearCash()
+    {
+        SetCashData(0);
+    }
 }

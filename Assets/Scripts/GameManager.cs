@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     private float carTimer = 30;
 
     public Canvas notEnoughMoneytoSwitchCarCanvas;
+    public Canvas RccCanvas;
     
     private void Awake()
     {
@@ -64,13 +65,24 @@ public class GameManager : MonoBehaviour
     }
     public void OnCarHit()
     {
-        hitCanvas.SetActive(true);
+        
         CarData carData = carSelector.GetCar().GetCarData();
-        carNameText.text = carData.GetCarName;
-        hitText.text =  carData.GetCarPrice+" coins are deducted from your account";
-        CashManager.DeductCash(carData.GetCarPrice);
-        Invoke(nameof(DisbaleCarHitPanel), 3.5f);
-        Debug.Log("Cash is " + CashManager.GetSavedCash());
+        if (!carData.GetSelectionStatus())
+        {
+            hitCanvas.SetActive(true);
+            carNameText.text = carData.GetCarName;
+            hitText.text = carData.GetCarPrice + " coins are deducted from your account";
+            CashManager.DeductCash(carData.GetCarPrice);
+            Invoke(nameof(DisbaleCarHitPanel), 3.5f);
+            Debug.Log("Cash is " + CashManager.GetSavedCash());
+        }
+        else
+        {
+            //GameOver
+            CashManager.ClearCash();
+            Debug.Log("GameOver");
+        }
+       
     }
     
     private void DisbaleCarHitPanel()

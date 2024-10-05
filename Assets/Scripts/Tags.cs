@@ -10,4 +10,5 @@ public static class Tags
 public class PLAYER_PREFS
 {
     public const string Cash = "Cash";
+    
 }
