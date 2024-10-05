@@ -26,7 +26,7 @@ public class CarData : ScriptableObject
     }
     public void SetSafeSelection()
     {
-        dangerousSelection = true;
+        dangerousSelection = false;
     }
 
     public bool GetSelectionStatus()

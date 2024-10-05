@@ -22,7 +22,7 @@ public class PlayerCar : MonoBehaviour
             if (collisions<=0)
             {
                 collisions = 0;
-                //GameOver
+                GameManager.Instance.GameOver();
                 Debug.Log("GameOver");
             }
         }

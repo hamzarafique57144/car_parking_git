@@ -1311,6 +1311,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   carData: {fileID: 11400000, guid: bb16eeea3ceff8642ae07d2418747173, type: 2}
+  timer: 0
+  isSelected: 0
 --- !u!1 &6698487851334506323
 GameObject:
   m_ObjectHideFlags: 0
@@ -1662,7 +1664,7 @@ GameObject:
   - component: {fileID: 6635650110824260229}
   m_Layer: 8
   m_Name: Car_8C
-  m_TagString: Untagged
+  m_TagString: Car
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
