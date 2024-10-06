@@ -39,6 +39,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI gameOverCollisionTxt;
     [SerializeField] TextMeshProUGUI gameOverTimeTxt;
     [SerializeField] TextMeshProUGUI gameOverCashTxt;
+
+    [Header("Levels")]
+    public List<GameObject> level;
+   [HideInInspector] public int collisions;
     private void Awake()
     {
         Instance = this;
@@ -51,6 +55,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        collisions = 0;
         trackTime = 0;
         hitCanvas.SetActive(false);
         notEnoughMoneytoSwitchCarCanvas.enabled = false;
@@ -91,7 +96,7 @@ public class GameManager : MonoBehaviour
     }
     public void OnCarHit()
     {
-        
+        collisions++;
         CarData carData = carSelector.GetCar().GetCarData();
         if (!carData.GetSelectionStatus())
         {
@@ -123,6 +128,7 @@ public class GameManager : MonoBehaviour
         CashManager.AddCash(10000);
         levelCompleteCashTxt.text = CashManager.GetSavedCash().ToString();
         levelCompleteTimeTxt.text = GetTime();
+        levelCompleteCashTxt.text = collisions.ToString();
         Debug.Log("Taken Time is " + GetTime());
     }
     public void GameOver()
@@ -133,6 +139,7 @@ public class GameManager : MonoBehaviour
         RccCanvas.enabled = false;
         gameOverCashTxt.text = CashManager.GetSavedCash().ToString();
         gameOverTimeTxt.text = GetTime();
+        gameOverCollisionTxt.text = collisions.ToString();
         Debug.Log("Taken Time is " + GetTime());
     }
     private void DisbaleCarHitPanel()

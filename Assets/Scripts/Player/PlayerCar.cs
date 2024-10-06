@@ -18,6 +18,7 @@ public class PlayerCar : MonoBehaviour
         if (carController.enabled)
         {
             collisions--;
+            GameManager.Instance.collisions +=1;
             collsionsText.text = collisions.ToString();
             if (collisions<=0)
             {
