@@ -42,7 +42,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Levels")]
     public List<GameObject> level;
-   [HideInInspector] public int collisions;
+   [HideInInspector] public int collisions =0;
     private void Awake()
     {
         Instance = this;
@@ -75,7 +75,7 @@ public class GameManager : MonoBehaviour
         if (!levelCompleted)
         {
              Invoke(nameof(TrackTheTime), 1f);
-            Debug.Log("Time is " + trackTime);
+            
         }
     }
     private void SelectedCarSlider()
@@ -128,7 +128,7 @@ public class GameManager : MonoBehaviour
         CashManager.AddCash(10000);
         levelCompleteCashTxt.text = CashManager.GetSavedCash().ToString();
         levelCompleteTimeTxt.text = GetTime();
-        levelCompleteCashTxt.text = collisions.ToString();
+        levelCompleteCollisionTxt.text = collisions.ToString();
         Debug.Log("Taken Time is " + GetTime());
     }
     public void GameOver()

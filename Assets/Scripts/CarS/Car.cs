@@ -9,10 +9,15 @@ public class Car : MonoBehaviour
     public float timer = 0f;
     GameManager gameManager;
     public bool isSelected;
+
+    private void Awake()
+    {
+       
+    }
     private void Start()
     {
         gameManager = GameManager.Instance;
-        
+      
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -30,4 +35,6 @@ public class Car : MonoBehaviour
             
     }
     public CarData GetCarData() { return carData; }
+   
+
 }

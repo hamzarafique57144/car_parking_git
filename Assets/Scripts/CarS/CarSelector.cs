@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using TMPro;
 using Unity.VisualScripting;
@@ -21,8 +22,10 @@ public class CarSelector : MonoBehaviour
     public bool isCarSelected = false;
     private GameManager gameManager;
     [SerializeField] TextMeshProUGUI notEnoughMoneyDesciptioniText;
+    private List<GameObject> carBodyParts;
     private void Start()
     {
+        
         gameManager = GameManager.Instance;
         playerCar = GameObject.FindGameObjectWithTag(Tags.PlayerCarTag).GetComponent<RCC_CarControllerV3>();
         playerCarRigidbody = playerCar.GetComponent<Rigidbody>();
@@ -48,7 +51,7 @@ public class CarSelector : MonoBehaviour
                 
                 Debug.DrawRay(ray.origin, ray.direction, UnityEngine.Color.red);
                 Debug.Log(hit.transform.name);
-                Debug.Log("Raycasting");
+                
                 RCC_CarControllerV3 car = hit.transform.GetComponent<RCC_CarControllerV3>();
                 
                 if (car != null   )
@@ -74,7 +77,7 @@ public class CarSelector : MonoBehaviour
                         }
                         selectedCar = car;
                         if (selectedCar != null)
-                        {
+                        {                           
                             isCarSelected = true;
 
                             OnCarControllSwitch?.Invoke(this, EventArgs.Empty);
@@ -82,12 +85,13 @@ public class CarSelector : MonoBehaviour
                             //We can switch control from a selected to other
                             canSwitch = true;
                             playerCar.KillEngine();
-                            playerCar.enabled = false;
+                            playerCar.enabled = false;                           
                             playerCarRigidbody.isKinematic = true;
-                            selectedCar.gameObject.GetComponent<Rigidbody>().isKinematic = false;
-                            selectedCar.enabled = true;
-                            selectedCar.StartEngine();
-                            Camera_RCC.SetActive(true);
+                            /* selectedCar.gameObject.GetComponent<Rigidbody>().isKinematic = false;
+                             selectedCar.enabled = true;
+                             selectedCar.StartEngine();*/
+                            Invoke(nameof(TestingStaticBatching), .3f);
+                            Camera_RCC.SetActive(true);   
                             CarSelectionCamera.gameObject.SetActive(false);
                         }
 
@@ -101,8 +105,8 @@ public class CarSelector : MonoBehaviour
                         isCarSelected = false;
                       
                         //We can not switch car untill we press switch button
-                        canSwitch = false;
-                        playerCar.enabled = true;
+                        canSwitch = false;                      
+                        playerCar.enabled = true;              
                         playerCar.StartEngine();
                         playerCarRigidbody.isKinematic = false;
                        
@@ -118,7 +122,12 @@ public class CarSelector : MonoBehaviour
             }
         }
     }
-
+    void TestingStaticBatching()
+    {
+        selectedCar.gameObject.GetComponent<Rigidbody>().isKinematic = false;
+        selectedCar.enabled = true;
+        selectedCar.StartEngine();
+    }
     public void DangerousCarSelection()
     {
         //When we don't have enough coins to switch the car
@@ -144,13 +153,12 @@ public class CarSelector : MonoBehaviour
         isCarSelected = false ;
         gameManager.DisableTimerPanel();
         //We can not switch car untill we press switch button
-        canSwitch = false;
+        canSwitch = false;        
         playerCar.enabled = true;
         playerCar.StartEngine();
         playerCarRigidbody.isKinematic = false;
         selectedCar.KillEngine();
-        selectedCar.enabled = false;
-        
+        selectedCar.enabled = false;      
         selectedCar.gameObject.GetComponent<Rigidbody>().isKinematic = true;
         
     }
@@ -167,6 +175,8 @@ public class CarSelector : MonoBehaviour
         //When we want to switch control from a selected car to other
         if(selectedCar!=null)
         {
+          
+         
             selectedCar.KillEngine();
             selectedCar.enabled = false;
             
@@ -190,4 +200,5 @@ public class CarSelector : MonoBehaviour
            return selectedVehicle;
         
     }
-}
+
+   }
